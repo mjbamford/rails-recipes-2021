@@ -1,1 +1,6 @@
-<h1>Hello, World!</h1>
+<%= render "shared/heading" %>
+<ul>
+<% @messages.each do |message| %>
+    <%= render partial: 'message', locals: { message: message } %>
+<% end %>
+</ul>
