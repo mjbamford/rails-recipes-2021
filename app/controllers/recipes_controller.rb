@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
     def index
-        @messages = %w[ one two three foru five six seven eight ]
+        @recipes = Recipe.all
     end
 end

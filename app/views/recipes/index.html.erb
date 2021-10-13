@@ -1,6 +1,15 @@
 <%= render "shared/heading" %>
-<ul>
-<% @messages.each do |message| %>
-    <%= render partial: 'message', locals: { message: message } %>
-<% end %>
-</ul>
+<table>
+    <thead>
+        <td>Name</td>
+        <td>Difficulty</td>
+    </thead>
+    <tbody>
+        <% @recipes.each do |recipe| %>
+            <tr id="recipe-<%= recipe.id %>">
+                <td><%= recipe.name %></td>
+                <td><%= recipe.difficulty %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
