@@ -3,8 +3,8 @@ class CreateRecipes < ActiveRecord::Migration[6.1]
     create_table :recipes do |t|
       t.string :name
       t.integer :difficulty
-      t.references :author
-      # t.bigint :author_id, :foreign_key: true, index: true
+      # See 3025 migration
+      # t.references :author, foreign_key: true, null: false
       t.timestamps
     end
   end

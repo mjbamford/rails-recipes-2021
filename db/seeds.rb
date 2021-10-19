@@ -10,15 +10,27 @@ Examples:
   Character.create(name: 'Luke', movie: movies.first)
 =end
 
-if Recipe.count == 0
-    1000.times do
-        # self?? What is it's ancestory chain to find `rand`?
-        Recipe.create! name: Faker::Food.dish, difficulty: (rand(5) + 1)
+if Rails.env.development?
+    if Author.count ==0
+        3.times do
+            Author.create! name: Faker::Name.name, email: Faker::Internet.email
+        end
     end
-end
 
-if Author.count ==0
-    10.times do
-        Author.create! name: Faker::Name.name, email: Faker::Internet.email
+    if Recipe.count == 0
+        author_ids = Author.pluck(:id)
+        21.times do
+            author = Author.find author_ids.sample
+            author.recipes.create! name: Faker::Food.dish, difficulty: (rand(5) + 1)
+        end
+    end
+
+    if Ingredient.count == 0
+        recipe_ids = Recipe.pluck(:id)
+
+        21.times do
+            ingredient = Ingredient.create name: Faker::Food.ingredient
+            3.times { ingredient.recipes << (Recipe.find recipe_ids.sample) }
+        end
     end
 end
