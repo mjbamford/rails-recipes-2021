@@ -26,11 +26,18 @@ if Rails.env.development?
     end
 
     if Ingredient.count == 0
-        recipe_ids = Recipe.pluck(:id)
-
         21.times do
-            ingredient = Ingredient.create name: Faker::Food.ingredient
-            3.times { ingredient.recipes << (Recipe.find recipe_ids.sample) }
+            Ingredient.create! name: Faker::Food.ingredient
+        end
+    end
+
+    if RecipeIngredient.count == 0
+        ingredient_ids = Ingredient.pluck(:id)
+
+        Recipe.all.each do |recipe|
+            (rand(5)+1).times do
+                recipe.ingredients << (Ingredient.find ingredient_ids.sample)
+            end
         end
     end
 end
