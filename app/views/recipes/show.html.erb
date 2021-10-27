@@ -1,11 +1,24 @@
 <h1>Recipe</h1>
 
 <div>
-<strong>Name</strong>
-<%= @recipe.name %>
+    <strong>Name</strong>
+    <%= @recipe.name %>
 </div>
 
 <div>
-<strong>Difficulty</strong>
-<%= @recipe.difficulty %>
+    <strong>Difficulty</strong>
+    <%= @recipe.difficulty %>
+</div>
+
+<div>
+    <strong>Author</strong>
+    <%= @recipe.author.name %>
+</div>
+
+<div>
+    <ul>
+        <% @recipe.ingredients.each do |ingredient| %>
+            <li><%= ingredient.name %></li>
+        <% end %>
+    </ul>
 </div>
