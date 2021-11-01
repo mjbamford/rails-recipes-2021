@@ -1,33 +1,46 @@
-<h1>Recipe</h1>
+<div class="recipe show">
+    <h1>Recipe</h1>
 
-<div>
-    <strong>Name</strong>
-    <%= @recipe.name %>
-</div>
-
-<div>
-    <strong>Difficulty</strong>
-    <%= @recipe.difficulty %>
-</div>
-
-<div>
-    <strong>Author</strong>
-    <%= @recipe.author.name %>
-</div>
-
-<% @recipe.comments.each do |comment| %>
     <div>
-        <div>
-            By <%= comment.author.name %> <%= distance_of_time_in_words_to_now comment.created_at %>
-        </div>
-        <%= comment.text %>
+        <strong>Name</strong>
+        <%= @recipe.name %>
     </div>
-<% end %>
 
-<div>
-    <ul>
-        <% @recipe.ingredients.each do |ingredient| %>
-            <li><%= ingredient.name %></li>
-        <% end %>
-    </ul>
+    <div>
+        <strong>Difficulty</strong>
+        <%= @recipe.difficulty %>
+    </div>
+
+    <div>
+        <strong>Author</strong>
+        <%= @recipe.author.name %>
+    </div>
+
+    <div class='ingredients'>
+        <strong>Ingredients</strong>
+        <ul>
+            <% @recipe.ingredients.each do |ingredient| %>
+                <li class='ingredient'><%= ingredient.name %></li>
+            <% end %>
+        </ul>
+    </div>
+
+    <div class='comments'>
+        <strong>Comments</strong>
+        <ul class='comment'>
+            <% @recipe.comments.each do |comment| %>
+                <li>
+                    <div>
+                        <span>
+                            By <%= comment.author.name %>
+                        </span>
+                        <span>
+                            <%= distance_of_time_in_words_to_now comment.created_at %>
+
+                        </span>
+                    </div>
+                    <div><%= comment.text %></div>
+                </li>
+            <% end %>
+        </ul>
 </div>

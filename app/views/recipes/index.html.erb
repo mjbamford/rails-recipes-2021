@@ -1,20 +1,30 @@
-<%= render "shared/heading" %>
-
-<!-- This is a comment in HTML -->
-<%# This is a comment in Ruby %>
-<%#= This is a comment in Ruby %>
-
+<p id="notice"><%= notice %></p>
+<h1>Recipes</h1>
 <table>
-    <thead>
-        <td>Name</td>
-        <td>Difficulty</td>
-    </thead>
-    <tbody>
-        <% @recipes.each do |recipe| %>
-            <tr id="recipe-<%= recipe.id %>">
-                <td><%= recipe.name %></td>
-                <td><%= recipe.difficulty %></td>
-            </tr>
-        <% end %>
-    </tbody>
+  <thead>
+    <tr>
+      <th>Name</th>Name
+      <th>Difficulty</th>
+      <th>Author</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @recipes.each do |recipe| %>
+      <tr>
+        <td><%= recipe.name %></td>
+        <td><%= recipe.difficulty %></td>
+        <td><%= recipe.author.name %></td>
+        <td><%= link_to 'Show', recipe %></td>
+        <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td>
+        <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
+
+<br>
+
+<%= link_to 'New Recipe', new_recipe_path %>
+

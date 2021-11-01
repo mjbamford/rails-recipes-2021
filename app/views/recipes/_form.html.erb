@@ -1,4 +1,4 @@
-<%= form_with model: recipe do |form| %>
+<%= form_with model: recipe, class: 'recipe' do |form| %>
     <% if recipe.errors.any? %>
         <div id="error_explanation">
             <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
@@ -12,14 +12,11 @@
     <div class="field">
         <%= form.label :name %>
         <%= form.text_field :name %>
-        <% if recipe.errors.full_messages_for(:name) %>
-            <%= recipe.errors.full_messages_for(:name) %>
-        <% end %>
     </div>
 
     <div class="field">
         <%= form.label :difficulty %>
-        <%= form.range_field :difficulty, in: 1..10 %>
+        <%= form.range_field :difficulty, in: 1..5 %>
     </div>
 
     <div class="field">
@@ -27,16 +24,9 @@
         <%= form.collection_select :author_id, Author.all, :id, :name %>
     </div>
 
-    <div class="field">
+    <div class="field ingredients">
         <%= form.label :ingredients %>
         <%= form.collection_check_boxes :ingredient_ids, Ingredient.all, :id, :name %>
-
-
-        <%= form.collection_check_boxes :ingredient_ids, Ingredient.all, :id, :name do |ingredient| %>
-            <%= ingredient.label do %>
-                <%= ingredient.check_box + ingredient.text %>
-            <% end %>
-        <% end if false %>
     </div>
 
     <div class="field">
