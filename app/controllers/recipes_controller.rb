@@ -49,6 +49,8 @@ class RecipesController < ApplicationController
     end
 
     def permitted_params
-        params.required(:recipe).permit(:name, :difficulty, :author_id, ingredient_ids: [])
+        params.required(:recipe).permit(
+            :name, :difficulty, :author_id, ingredient_ids: [], comments_attributes: [ :author_id, :text ]
+        ) 
     end
 end

@@ -39,6 +39,14 @@
         <% end if false %>
     </div>
 
+    <div class="field">
+        <%= form.label :comment %>
+        <%= form.fields_for :comments, recipe.comments.build(author_id: Author.last.id) do |comment_form| %>
+            <%= comment_form.hidden_field :author_id %>
+            <%= comment_form.text_area :text %>
+        <% end %>
+    </div>
+
     <div class="actions">
         <%= form.submit %>
     </div>

@@ -15,6 +15,15 @@
     <%= @recipe.author.name %>
 </div>
 
+<% @recipe.comments.each do |comment| %>
+    <div>
+        <div>
+            By <%= comment.author.name %> <%= distance_of_time_in_words_to_now comment.created_at %>
+        </div>
+        <%= comment.text %>
+    </div>
+<% end %>
+
 <div>
     <ul>
         <% @recipe.ingredients.each do |ingredient| %>
