@@ -1,5 +1,7 @@
 class RecipesController < ApplicationController
+    include Unauthorized
     before_action :authenticate_user!
+    rescue_from Pundit::NotAuthorizedError, with: :unauthorised
 
     def index
         @recipes = Recipe.all
@@ -36,10 +38,12 @@ class RecipesController < ApplicationController
 
     def edit
         @recipe = Recipe.find(params[:id])
+        authorize @recipe
     end
 
     def update
         @recipe = Recipe.find(params[:id])
+        authorize @recipe
 
         respond_to do |format|
             if @recipe.update(permitted_params)
