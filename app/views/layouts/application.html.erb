@@ -13,7 +13,7 @@
     <p class="notice"><%= flash[:notice] %></p>
     <p class="alert"><%= flash[:alert] %></p>
     <header>
-      <p>Hello, <%= current_user.email %>!</p>
+      <p>Hello, <%= current_user&.email || 'Anonymous' %>!</p>
     </header>
     <%= yield %>
   </body>
