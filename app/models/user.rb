@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   attr_accessor :name
 
+  has_one :author
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise \
@@ -10,5 +12,7 @@ class User < ApplicationRecord
     :rememberable,
     :validatable,
     :trackable,
-    :timeoutable, timeout_in: 2.minutes
+    :timeoutable, timeout_in: 30.minutes
+
+  def admin?; false; end
 end
