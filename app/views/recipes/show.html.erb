@@ -16,6 +16,12 @@
         <%= @recipe.author.name %>
     </div>
 
+    <% if @recipe.image_filename %>
+        <div>
+            <%= image_tag "/images/#{@recipe.image_filename}", width: '250px' %>
+        </div>
+    <% end %>
+
     <div class='ingredients'>
         <strong>Ingredients</strong>
         <ul>

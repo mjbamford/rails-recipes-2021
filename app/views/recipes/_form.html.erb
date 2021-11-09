@@ -20,6 +20,11 @@
     </div>
 
     <div class="field">
+        <%= form.label :image %>
+        <%= form.file_field :image %>
+    </div>
+
+    <div class="field">
         <%= form.label :author_id %>
         <%= form.collection_select :author_id, Author.all, :id, :name %>
     </div>

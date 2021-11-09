@@ -29,6 +29,7 @@ class RecipesController < ApplicationController
 
         respond_to do |format|
             if @recipe.save
+                upload_file
                 format.html { redirect_to @recipe }
             else
                 format.html { render :new }
@@ -47,6 +48,7 @@ class RecipesController < ApplicationController
 
         respond_to do |format|
             if @recipe.update(permitted_params)
+                upload_file
                 format.html { redirect_to @recipe }
             else
                 format.html { render :edit }
@@ -58,5 +60,17 @@ class RecipesController < ApplicationController
         params.required(:recipe).permit(
             :name, :difficulty, :author_id, ingredient_ids: [], comments_attributes: [ :author_id, :text ]
         ) 
+    end
+
+    def upload_file
+        if uploaded_file = params[:recipe][:image]
+            pathname = Rails.root.join 'public', 'images', uploaded_file.original_filename
+
+            File.open(pathname, 'wb') do |file|
+                file.write uploaded_file.read
+            end
+
+            @recipe.update_attribute :image_filename, uploaded_file.original_filename
+        end
     end
 end

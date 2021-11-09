@@ -18,6 +18,9 @@
 !/tmp/pids/
 !/tmp/pids/.keep
 
+# Ignore pidfiles, but keep the directory.
+/public/images/*
+!/public/images/.keep
 
 /public/assets
 .byebug_history
