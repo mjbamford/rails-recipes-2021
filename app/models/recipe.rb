@@ -3,6 +3,7 @@ class Recipe < ApplicationRecord
     has_many :recipe_ingredients
     has_many :ingredients, through: :recipe_ingredients
     has_many :comments, as: :commentable
+    has_one_attached :image
 
     validates :name, presence: true
     validates :name, uniqueness: true

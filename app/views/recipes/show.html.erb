@@ -16,9 +16,9 @@
         <%= @recipe.author.name %>
     </div>
 
-    <% if @recipe.image_filename %>
+    <% if @recipe.image.attached? %>
         <div>
-            <%= image_tag "/images/#{@recipe.image_filename}", width: '250px' %>
+            <%= image_tag url_for(@recipe.image), width: '250px' %>
         </div>
     <% end %>
 
