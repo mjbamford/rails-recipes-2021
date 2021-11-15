@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_10_002156) do
+ActiveRecord::Schema.define(version: 2021_11_15_003746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2021_11_10_002156) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
+    t.boolean "editor", default: false, null: false
     t.index ["user_id"], name: "index_authors_on_user_id"
   end
 
@@ -76,6 +77,13 @@ ActiveRecord::Schema.define(version: 2021_11_10_002156) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "ingredients_recipes", id: false, force: :cascade do |t|
+    t.bigint "recipe_id", null: false
+    t.bigint "ingredient_id", null: false
+    t.index ["ingredient_id", "recipe_id"], name: "index_ingredients_recipes_on_ingredient_id_and_recipe_id"
+    t.index ["recipe_id", "ingredient_id"], name: "index_ingredients_recipes_on_recipe_id_and_ingredient_id"
+  end
+
   create_table "recipe_ingredients", force: :cascade do |t|
     t.bigint "recipe_id", null: false
     t.bigint "ingredient_id", null: false
@@ -89,11 +97,22 @@ ActiveRecord::Schema.define(version: 2021_11_10_002156) do
   create_table "recipes", force: :cascade do |t|
     t.string "name"
     t.integer "difficulty"
-    t.bigint "author_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "author_id", null: false
     t.string "image_filename"
     t.index ["author_id"], name: "index_recipes_on_author_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.bigint "seller_id", null: false
+    t.bigint "buyer_id", null: false
+    t.bigint "recipe_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["buyer_id"], name: "index_transactions_on_buyer_id"
+    t.index ["recipe_id"], name: "index_transactions_on_recipe_id"
+    t.index ["seller_id"], name: "index_transactions_on_seller_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -119,4 +138,7 @@ ActiveRecord::Schema.define(version: 2021_11_10_002156) do
   add_foreign_key "recipe_ingredients", "ingredients"
   add_foreign_key "recipe_ingredients", "recipes"
   add_foreign_key "recipes", "authors"
+  add_foreign_key "transactions", "users", column: "buyer_id"
+  add_foreign_key "transactions", "users", column: "recipe_id"
+  add_foreign_key "transactions", "users", column: "seller_id"
 end

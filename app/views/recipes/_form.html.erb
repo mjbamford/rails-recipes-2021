@@ -36,7 +36,7 @@
 
     <div class="field">
         <%= form.label :comment %>
-        <%= form.fields_for :comments, recipe.comments.build(author_id: Author.last.id) do |comment_form| %>
+        <%= form.fields_for :comments, recipe.comments.build(author_id: current_user.author.id) do |comment_form| %>
             <%= comment_form.hidden_field :author_id %>
             <%= comment_form.text_area :text %>
         <% end %>
