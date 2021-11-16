@@ -8,4 +8,5 @@ class Author < ApplicationRecord
         source_type: 'Recipe',
         foreign_key: :commentable_type, 
         class_name: 'Recipe'
+    has_many :logs, as: :loggable
 end

@@ -8,6 +8,8 @@ class User < ApplicationRecord
   has_many :purchased_recipes, through: :purchases, source: :recipe
   has_many :sold_recipes, through: :sales, source: :recipe
 
+  has_many :logs, as: :loggable
+
   scope :sellers, -> { distinct.joins(:sales) }
   scope :buyers, -> { distinct.joins(:purchases) }
 
